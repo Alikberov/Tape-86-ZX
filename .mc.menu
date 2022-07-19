@@ -1,0 +1,39 @@
+shell_patterns=0
+
+##############################################################################
+#   %%  The % character
+#   %f  The current file (if non-local vfs, file will be copied locally and
+#                         %f will be full path to it)
+#   %p  The current file
+#   %d  The current working directory
+#   %s  "Selected files"; the tagged files if any, otherwise the current file
+#   %t  Tagged files
+#   %u  Tagged files (and they are untagged on return from expand_format)
+#   %view Runs the commands and pipes standard output to the view command
+#   If %view is immediately followed by '{', recognize keywords
+#   ascii, hex, nroff and unform
+#
+#   If the format letter is in uppercase, it refers to the other panel
+#
+#   With a number followed the % character you can turn quoting on (default)
+#   and off. For example:
+#   %f    quote expanded macro
+#   %1f   ditto
+#   %0f   don't quote expanded macro
+##############################################################################
+
++ f \.tap$ | f \.rk$ | f \.rkr$ | f \.gam$
+0	Tape-86ZX
+	./tape86zx.sh %f
+
++ t \.tap$ | t \.rk$ | t \.rkr$ | f \.gam$ & t t
+0	Tape-86ZX ...
+	./tape86zx.sh %u
+
++ f \.tap$ | f \.rk$ | f \.rkr$ | f \.gam$
+5	Tape-86ZX --screen-only
+	./tape86zx.sh --screen-only %f
+
++ t \.tap$ | t \.rk$ | t \.rkr$ | f \.gam$ & t t
+5	Tape-86ZX ... --screen-only
+	./tape86zx.sh --screen-only %u
